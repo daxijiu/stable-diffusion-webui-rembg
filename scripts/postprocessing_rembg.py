@@ -50,6 +50,12 @@ class ScriptPostprocessingUpscale(scripts_postprocessing.ScriptPostprocessing):
         if not model or model == "None":
             return
 
+        import os
+        script_dir = os.path.abspath( os.path.dirname( __file__ ) )
+        root_dir = os.path.dirname(os.path.normpath(script_dir))
+        models_dir = os.path.join(root_dir, "models")
+        os.environ["U2NET_HOME"] = models_dir
+        
         pp.image = rembg.remove(
             pp.image,
             session=rembg.new_session(model),
